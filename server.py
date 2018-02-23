@@ -1,0 +1,60 @@
+import subprocess
+import time
+from threading import Thread
+
+class ServerError(Exception):
+    pass
+
+class Server(object):
+    """ class to control mpg123 player """
+    def __init__(self, url=None):
+        if url is None:
+            self.url = 'http://nashe2.hostingradio.ru/ultra-128.mp3'
+        self.p = None
+        self.isStoped = False
+
+    def read_info(self):
+        """ read meta-info """
+        pass
+
+    def run(self):
+        while True:
+            if not self.isStoped:
+                self.p = subprocess.Popen(['mpg123', '-@', self.url], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                out, err = self.p.communicate()
+                time.sleep(5)
+            else:
+                print('Stop command received')
+                break
+
+    @property
+    def stop(self):
+        """
+        Stop radio
+
+        :return: True or False
+
+        """
+        if self.p is not None:
+            try:
+                print('Stop command send')
+                self.isStoped = True
+                self.p.kill()
+            except Exception as err:
+                raise ServerError('Cant stop radio server. {error}'.format(error=err))
+            else:
+                return True
+        else:
+            return False
+
+    @property
+    def start(self):
+        th1 = Thread(target=self.run, args=())
+        th1.start()
+
+if __name__ == '__main__':
+    x = Server()
+
+    x.start
+    time.sleep(25)
+    x.stop
