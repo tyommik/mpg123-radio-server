@@ -1,6 +1,7 @@
 import subprocess
 import time
 from threading import Thread
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 class ServerError(Exception):
     pass
@@ -53,6 +54,8 @@ class Server(object):
     def start(self):
         th1 = Thread(target=self.run, args=())
         th1.start()
+        # with ThreadPoolExecutor(max_workers=2) as pool:
+        #     futures = [pool.submit(self.run(),)
 
 if __name__ == '__main__':
     x = Server(url='http://nashe2.hostingradio.ru/ultra-128.mp3')
