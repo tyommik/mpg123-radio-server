@@ -1,7 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Hi, {{user.nickname}}!</h1>
-{% for post in posts %}
-<div><p>{{post.author.nickname}} says: <b>{{post.body}}</b></p></div>
-{% endfor %}
+
+<script>
+$(function() {
+    $('button').click(function() {
+        var radio = $(this).attr("value");
+        $.ajax({
+            url: '/play',
+            data: radio,
+            method: 'POST',
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+
+<h1>Привет, {{user.nickname}}! :)</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" align="center">Радиостанции</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%  for url in urls %}
+    <tr>
+      <td><button type="button" name="submit" value="{{ url }}" class="btn btn-success btn-block">{{ url }}</button></td>
+    </tr>
+  {% endfor %}
+  <tr>
+      <td><button type="button" name="submit" value="stop" class="btn btn-danger btn-block">Выключить радио</button></td>
+  </tr>
+  </tbody>
+</table>
 {% endblock %}

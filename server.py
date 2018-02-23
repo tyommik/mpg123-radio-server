@@ -10,6 +10,8 @@ class Server(object):
     def __init__(self, url=None):
         if url is None:
             self.url = 'http://nashe2.hostingradio.ru/ultra-128.mp3'
+        else:
+            self.url = url
         self.p = None
         self.isStoped = False
 
@@ -53,7 +55,7 @@ class Server(object):
         th1.start()
 
 if __name__ == '__main__':
-    x = Server()
+    x = Server(url='http://nashe2.hostingradio.ru/ultra-128.mp3')
 
     x.start
     time.sleep(25)
