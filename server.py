@@ -15,10 +15,26 @@ class Server(object):
             self.url = url
         self.p = None
         self.isStoped = False
+        self.history = []
 
     def read_info(self):
         """ read meta-info """
-        pass
+        for line in iter(self.p.stdout.readline, b''):
+            # парсер сначала
+            print(line.decode())
+
+    def add_history(self, track):
+        """
+        store tracks history
+
+        :param track: track name
+
+        :return:
+        """
+        if len(self.history) > 5:
+            self.history.pop(0)
+        else:
+            self.history.append(track)
 
     def run(self):
         while True:
