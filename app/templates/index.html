@@ -19,9 +19,15 @@ $(function() {
     });
 });
 </script>
+<!-- <h1>Привет, {{user.nickname}}! :)</h1> -->
+<div class="container">
 
-<h1>Привет, {{user.nickname}}! :)</h1>
+  <div class="panel panel-default">
+    <div class="panel-body"><h4><b>Сейчас играет: {{ current_radio_station }}</b><br>{{ tracks[-1] }}</h4></div>
+  </div>
+</div>
 
+<div class="container">
 <table class="table">
   <thead>
     <tr>
@@ -39,4 +45,21 @@ $(function() {
   </tr>
   </tbody>
 </table>
+</div>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">5 последних треков</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+          {% for track in tracks[::-1] %}
+            <div class="panel-body">{{ track }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
