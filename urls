@@ -1,4 +1,7 @@
 {
     "Ultra": "http://nashe2.hostingradio.ru/ultra-128.mp3",
-    "RockFM": "http://nashe1.hostingradio.ru/rock-128.mp3"
+    "RockFM": "http://nashe1.hostingradio.ru/rock-128.mp3",
+    "Rock00s": "http://jfm1.hostingradio.ru:14536/rock00.mp3",
+    "Rock90s": "http://jfm1.hostingradio.ru:14536/rock90.mp3",
+    "Rock80s": "http://jfm1.hostingradio.ru:14536/rock80.mp3"
 }

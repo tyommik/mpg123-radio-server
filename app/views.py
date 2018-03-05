@@ -13,10 +13,20 @@ def index():
 
     urls = json.load(open('urls', 'r'))
 
+    if server_instance is None:
+        current_radio_station = ''
+        tracks = ['Нет истории']
+    else:
+        tracks = server_instance.get_history
+        current_radio_station = server_instance.get_current_radio_station
+
+
     return render_template("index.html",
-        title = 'Home',
-        user = user,
-        urls = urls)
+                           title='Home',
+                           user=user,
+                           urls=urls,
+                           tracks=tracks,
+                           current_radio_station=current_radio_station)
 
 @app.route('/play', methods=['POST'])
 def play():
@@ -27,11 +37,11 @@ def play():
         try:
             global server_instance
             if server_instance is None:
-                server_instance = server.Server(urls[cmd])
+                server_instance = server.Server(cmd)
                 server_instance.start
             else:
                 server_instance.stop
-                server_instance = server.Server(urls[cmd])
+                server_instance = server.Server(cmd)
                 server_instance.start
         except:
             make_response(jsonify({'status': 'fail'}))
